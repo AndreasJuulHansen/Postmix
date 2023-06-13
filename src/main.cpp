@@ -13,7 +13,7 @@ void setup()
     displaySetup();
     delay(2000);
     sdCardSetup();
-    flowmeterSetup();
+    // flowmeterSetup();
     ledSetup();
 
     pinMode(26, INPUT_PULLUP); // initialize pushbutton as an input with internal pullup resistor
@@ -90,35 +90,6 @@ void loop()
         }
 
     }
-
-    /* buttonState1 = digitalRead(14); // read the state of the pushbutton value
-    if (buttonState1 == LOW)
-    { // check if pushbutton is pressed
-        ledControl(0,0,0);
-    }
-    else
-    {
-        ledControl(0,0,-1);
-    }
-
-    buttonState2 = digitalRead(27); // read the state of the pushbutton value
-    if (buttonState2 == LOW)
-    { // check if pushbutton is pressed
-        ledControl(0,1,0);
-    }
-    else
-    {
-        ledControl(0,1,-1);
-    }
-    buttonState3 = digitalRead(26); // read the state of the pushbutton value
-    if (buttonState3 == LOW)
-    { // check if pushbutton is pressed
-        ledControl(0,2,0);
-    }
-    else
-    {
-        ledControl(0,2,-1);
-    } */
         FastLED.show();
 
 
