@@ -13,7 +13,7 @@ void setup()
     displaySetup();
     delay(2000);
     sdCardSetup();
-    // flowmeterSetup();
+    flowmeterSetup();
     ledSetup();
 
     pinMode(26, INPUT_PULLUP); // initialize pushbutton as an input with internal pullup resistor
@@ -41,13 +41,15 @@ int buttonState3 = 0;
 void loop()
 {
     int currentTime = millis();
+    // Serial.print("Normal task - Core: ");
+    // Serial.println(xPortGetCoreID());
 
     // Check for serial msg
     if (Serial.available())
     {
-        Serial.println("Received input.");
+        // Serial.println("Received input.");
         input = Serial.readString();
-        Serial.println(input);
+        // Serial.println(input);
     }
 
     // Update doc
@@ -69,13 +71,13 @@ void loop()
     {
         lastTime = millis();
 
-        Serial.println(buttonState1);
-        Serial.println(buttonState2);
-        Serial.println(buttonState3);
-        Serial.println("");
+        // Serial.println(buttonState1);
+        // Serial.println(buttonState2);
+        // Serial.println(buttonState3);
+        // Serial.println("");
 
-        Serial.println("Input:");
-        Serial.println(input);
+        // Serial.println("Input:");
+        // Serial.println(input);
 
         // Update
         for (int i = 0; i < 3; i++)
