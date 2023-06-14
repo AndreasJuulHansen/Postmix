@@ -10,6 +10,7 @@ void setup()
 {
     // delay(3000);
     Serial.begin(115200);
+    Serial.setTimeout(100);
     // delay(3000);
     displaySetup();
     delay(2000);
@@ -87,7 +88,7 @@ void loop()
             drawLiquid(0, i, arr[i][2]);
         }
     }
-    
+
     for (int i = 0; i < 3; i++)
     {
         ledControl(0, i, arr[2 - i][1]);

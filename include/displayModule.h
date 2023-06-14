@@ -149,15 +149,10 @@ int currentPicture[3][3] = {
 void loadType(int row, int col, int type)
 {
     ImageReturnCode stat; // Status from image-reading functions
-    // displays[row][col]->fillScreen(ST77XX_BLACK); // Makes screen black
 
     if (currentPicture[col][row] != type)
     {
-        // print new value
-        // Serial.print("Changing value: ");
-        // Serial.print(currentPicture[col][row]);
-        // Serial.print(" to ");
-        // Serial.println(type);
+        // print what we do
         // Serial.printf("Changing picture value: %d to %d \n", currentPicture[col][row], type);
 
         // update previous value
@@ -177,28 +172,6 @@ void loadType(int row, int col, int type)
     }
 }
 
-/* const int MAX_IMAGES = 10; // Maximum number of images
-int row[MAX_IMAGES];
-int col[MAX_IMAGES];
-int type[MAX_IMAGES];
-
-void loadType(int index)
-{
-    ImageReturnCode stat; // Status from image-reading functions
-
-    if (row[index] != ::row || col[index] != ::col || type[index] != ::type) // Check if there are changes
-    {
-        Serial.print("Reading picture ");
-        Serial.println(typeList[type[index]].c_str());
-        stat = reader.drawBMP(typeList[type[index]].c_str(), *displays[row[index]][col[index]], 0, 0); // prints picture
-        reader.printStatus(stat);                                                                         // How'd we do?
-
-        ::row = row[index]; // Update global variables
-        ::col = col[index];
-        ::type = type[index];
-    }
-} */
-
 int currentPercentage[3][3] = {
     {-1, -1, -1},
     {-1, -1, -1},
@@ -206,62 +179,22 @@ int currentPercentage[3][3] = {
 
 void drawLiquid(int row, int col, float percentage)
 {
-    // if (percentage == 1)
-    // {
-    //     // Loads status bar
-    //     displays[row][col]->fillRect(0, 64, displays[row][col]->width(), 16, ST7735_WHITE);     // Hvid baggrund på progress bar
-    //     displays[row][col]->fillRect(1, 65, (displays[row][col]->width() - 2), 14, ST7735_RED); // Rød bar
-    // }
-    // int numLedsToLight = map(waterFlow, 0, 1000, 100, 0);
-    // displays[row][col]->fillRect(displays[row][col]->width() * numLedsToLight / 100, 65, displays[row][col]->width() - displays[row][col]->width() * numLedsToLight / 100, 14, ST7735_WHITE);
-    // displays[row][col]->fillRect(displays[row][col]->width() * percentage / 100, 65, displays[row][col]->width() - displays[row][col]->width() * percentage / 100, 14, ST7735_RED);
-
     if (currentPercentage[col][row] != percentage)
     {
-        // print new value
-        // Serial.print("Changing value: ");
-        // Serial.print(currentPicture[col][row]);
-        // Serial.print(" to ");
-        // Serial.println(type);
-        // Serial.printf("Changing percentage value: %d to %d \n", currentPercentage[col][row], percentage);
+        // Print what we do
+        Serial.printf("Changing percentage value: %d to %d \n", currentPercentage[col][row], percentage);
 
-        // update previous value
-        currentPercentage[col][row] = percentage;
-        displays[row][col]->drawRect(0, 64, displays[row][col]->width(), 16, ST7735_WHITE);                                                                                                       // White box around the status bar
-        displays[row][col]->fillRect(1, 65, displays[row][col]->width() - (displays[row][col]->width() - 1 - displays[row][col]->width() * percentage / 100), 14, ST7735_RED);                    // Red part of status bar
-        displays[row][col]->fillRect(1 + displays[row][col]->width() * percentage / 100, 65, displays[row][col]->width() - displays[row][col]->width() * percentage / 100 - 2, 14, ST7735_WHITE); // White part of status bar
-    }
-}
-
-/* void loop()
-{
-    // displays[0][1]->fillScreen(ST77XX_BLACK);
-    Serial.print("Reading picture ");
-    Serial.println(typeList[10].c_str());
-    reader.drawBMP(typeList[10].c_str(), display1, 0, 0);
-
-
-
-    for (int x = 0; x < 18; x++)
-    {
-        loadType(0,0,x);
-        loadType(0,1,x + 1);
-        // ImageReturnCode stat; // Status from image-reading functions
-        // // displays[0][0]->fillScreen(ST77XX_BLACK);
-        // Serial.print("Reading picture ");
-        // Serial.println(typeList[x].c_str());
-        // stat = reader.drawBMP(typeList[x].c_str(), display0, 0, 0);
-        // reader.printStatus(stat); // How'd we do?
-
-        // displays[0][0]->fillRect(0, 64, displays[0][0]->width(), 16, ST7735_WHITE);     // Hvid baggrund på progress bar
-        // displays[0][0]->fillRect(1, 65, (displays[0][0]->width() - 2), 14, ST7735_RED); // Rød bar
-
-        for (float y = 100; y >= 0; y -= 0.25)
+        if (percentage != -1)
         {
-            drawLiquid(0, 0, y);
-            drawLiquid(0, 1, y);
-            delay(20);
+            // update previous value
+            currentPercentage[col][row] = percentage;
+
+            // Update screen
+            displays[row][col]->drawRect(0, 64, displays[row][col]->width(), 16, ST7735_WHITE);                                                                                                       // White box around the status bar
+            displays[row][col]->fillRect(1, 65, displays[row][col]->width() - (displays[row][col]->width() - 1 - displays[row][col]->width() * percentage / 100), 14, ST7735_RED);                    // Red part of status bar
+            displays[row][col]->fillRect(1 + displays[row][col]->width() * percentage / 100, 65, displays[row][col]->width() - displays[row][col]->width() * percentage / 100 - 2, 14, ST7735_WHITE); // White part of status bar
+        } else {
+            displays[row][col]->drawRect(0, 64, displays[row][col]->width(), 16, ST7735_BLACK);                                                                                                       // White box around the status bar
         }
     }
 }
- */
