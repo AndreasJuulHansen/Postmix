@@ -23,12 +23,12 @@ CS       -->       GPIO15 (Slave select)
 *************************************************************************/
 
 #include <Arduino.h>
-#include <Adafruit_GFX.h>     // Core graphics library
-#include <Adafruit_ST7735.h>  // Hardware-specific library for ST7735
+#include <Adafruit_GFX.h>    // Core graphics library
+#include <Adafruit_ST7735.h> // Hardware-specific library for ST7735
 #include <SPI.h>
-#include <SdFat.h>                 // SD card & FAT filesystem library
-#include <Adafruit_SPIFlash.h>     // SPI / QSPI flash library
-#include <Adafruit_ImageReader.h>  // Image-reading functions
+#include <SdFat.h>                // SD card & FAT filesystem library
+#include <Adafruit_SPIFlash.h>    // SPI / QSPI flash library
+#include <Adafruit_ImageReader.h> // Image-reading functions
 
 // List with all the flavours and their filenames on the SD card
 std::string typeList[] = {
@@ -111,7 +111,7 @@ void displaySetup()
             // The actual setup
             displays[row][col]->initR(INITR_MINI160x80_PLUGIN); // Init ST7735S mini display
             displays[row][col]->setRotation(1);                 // Sets rotation/orienation of the display
-            displays[row][col]->fillScreen(ST77XX_BLUE);       // Confirmation that
+            displays[row][col]->fillScreen(ST77XX_BLUE);        // Confirmation that
             // displays[row][col]->fillScreen(ST77XX_BLUE);
             // delay(3000);
         }
@@ -126,7 +126,8 @@ void sdCardSetup()
     Serial.print(F("Initializing filesystem..."));
 
     // We start the SD card
-    if (!SD.begin(SD_CS, SD_SCK_MHZ(10))){ // Breakouts require 10 MHz limit due to longer wires
+    if (!SD.begin(SD_CS, SD_SCK_MHZ(10)))
+    { // Breakouts require 10 MHz limit due to longer wires
         Serial.println(F("SD begin() failed"));
 
         displays[0][0]->setCursor(0, 0);
@@ -140,26 +141,34 @@ void sdCardSetup()
     Serial.println(F("Filesystem OK!"));
 }
 
-/* void setup()
-{
-    Serial.begin(115200);
-    displaySetup();
-    sdCardSetup();
-} */
+int currentPicture[3][3] = {
+    {-1, -1, -1},
+    {-1, -1, -1},
+    {-1, -1, -1}};
 
 void loadType(int row, int col, int type)
 {
     ImageReturnCode stat; // Status from image-reading functions
     // displays[row][col]->fillScreen(ST77XX_BLACK); // Makes screen black
 
-    // Serial.print("Reading picture ");
-    // Serial.println(typeList[type].c_str());
-    stat = reader.drawBMP(typeList[type].c_str(), *displays[row][col], 0, 0); // prints picture
-    // reader.printStatus(stat);                                                 // How'd we do?
+    if (currentPicture[col][row] != type)
+    {
+        // print new value
+        // Serial.print("Changing value: ");
+        // Serial.print(currentPicture[col][row]);
+        // Serial.print(" to ");
+        // Serial.println(type);
+        Serial.printf("Changing picture value: %d to %d \n", currentPicture[col][row], type);
+
+        // update previous value
+        currentPicture[col][row] = type;
+
+        // Serial.print("Reading picture ");
+        // Serial.println(typeList[type].c_str());
+        stat = reader.drawBMP(typeList[type].c_str(), *displays[row][col], 0, 0); // prints picture
+        reader.printStatus(stat);                                                 // How'd we do?
+    }
 }
-
-
-
 
 /* const int MAX_IMAGES = 10; // Maximum number of images
 int row[MAX_IMAGES];
@@ -183,11 +192,10 @@ void loadType(int index)
     }
 } */
 
-
-
-
-
-
+int currentPercentage[3][3] = {
+    {-1, -1, -1},
+    {-1, -1, -1},
+    {-1, -1, -1}};
 
 void drawLiquid(int row, int col, float percentage)
 {
@@ -200,9 +208,22 @@ void drawLiquid(int row, int col, float percentage)
     // int numLedsToLight = map(waterFlow, 0, 1000, 100, 0);
     // displays[row][col]->fillRect(displays[row][col]->width() * numLedsToLight / 100, 65, displays[row][col]->width() - displays[row][col]->width() * numLedsToLight / 100, 14, ST7735_WHITE);
     // displays[row][col]->fillRect(displays[row][col]->width() * percentage / 100, 65, displays[row][col]->width() - displays[row][col]->width() * percentage / 100, 14, ST7735_RED);
-    displays[row][col]->drawRect(0, 64, displays[row][col]->width(), 16, ST7735_WHITE);  // White box around the status bar
-    displays[row][col]->fillRect(1, 65, displays[row][col]->width() - (displays[row][col]->width() - 1 - displays[row][col]->width() * percentage / 100), 14, ST7735_RED); // Red part of status bar
-    displays[row][col]->fillRect(1 + displays[row][col]->width() * percentage / 100, 65, displays[row][col]->width() - displays[row][col]->width() * percentage / 100 - 2, 14, ST7735_WHITE); // White part of status bar
+
+    if (currentPercentage[col][row] != percentage)
+    {
+        // print new value
+        // Serial.print("Changing value: ");
+        // Serial.print(currentPicture[col][row]);
+        // Serial.print(" to ");
+        // Serial.println(type);
+        Serial.printf("Changing percentage value: %d to %d \n", currentPercentage[col][row], percentage);
+
+        // update previous value
+        currentPercentage[col][row] = percentage;
+        displays[row][col]->drawRect(0, 64, displays[row][col]->width(), 16, ST7735_WHITE);                                                                                                       // White box around the status bar
+        displays[row][col]->fillRect(1, 65, displays[row][col]->width() - (displays[row][col]->width() - 1 - displays[row][col]->width() * percentage / 100), 14, ST7735_RED);                    // Red part of status bar
+        displays[row][col]->fillRect(1 + displays[row][col]->width() * percentage / 100, 65, displays[row][col]->width() - displays[row][col]->width() * percentage / 100 - 2, 14, ST7735_WHITE); // White part of status bar
+    }
 }
 
 /* void loop()

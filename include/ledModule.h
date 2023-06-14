@@ -52,7 +52,6 @@ void ledBlink(int led, CRGB color)
 
 void ledControl(int row, int col, int status)
 {
-    // FastLED.clear();
     // Converts into indexes:
     int led = row * 3 + col;
 

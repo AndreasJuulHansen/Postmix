@@ -30,15 +30,19 @@ void pulse() // measure the quantity of square wave
     Serial.print("waterFlow: ");
     Serial.print(waterFlow);
     Serial.println(" mL");
+    // Serial.print("Flowmeter task - Core: ");
+    // Serial.println(xPortGetCoreID());
 }
 
 void flowmeterTask(void *pvParameters)
 {
+    waterFlow = 0;
     // attachInterrupt(flowmeterPin, pulse, RISING); // attach interrupt to flowmeterPin
-    
+    attachInterrupt(digitalPinToInterrupt(flowmeterPin), pulse, RISING); // attach interrupt to flowmeterPin
+
     for (;;)
     {
-        vTaskDelay(1); // delay for 1ms
+        vTaskDelay(5); // delay for 1ms
         // Serial.print("Flowmeter task - Core: ");
         // Serial.println(xPortGetCoreID());
     }
@@ -46,11 +50,12 @@ void flowmeterTask(void *pvParameters)
 
 void flowmeterSetup()
 {
-    waterFlow = 0;
-    attachInterrupt(flowmeterPin, pulse, RISING);                                           // DIGITAL Pin 32: Interrupt 0
+    // waterFlow = 0;
+    // attachInterrupt(flowmeterPin, pulse, RISING);                                           // DIGITAL Pin 32: Interrupt 0
+    // attachInterrupt(digitalPinToInterrupt(flowmeterPin), pulse, RISING);                                           // DIGITAL Pin 32: Interrupt 0
 
     xTaskCreatePinnedToCore(
-        flowmeterTask,  /* Task function. */
+        flowmeterTask,   /* Task function. */
         "flowmeterTask", /* name of task. */
         10000,           /* Stack size of task */
         NULL,            /* parameter of the task */
