@@ -27,9 +27,17 @@ TaskHandle_t flowmeter;
 void pulse() // measure the quantity of square wave
 {
     waterFlow += 1.0 / 5400.0 * 1000.0; // 5880
-    Serial.print("waterFlow: ");
-    Serial.print(waterFlow);
-    Serial.println(" mL");
+    // Serial.print("waterFlow: ");
+    // Serial.print(waterFlow);
+    // Serial.println(" mL");
+
+    if (waterFlow > 50)
+    {
+        Serial.println("50");
+        waterFlow = 0;
+    }
+
+    
     // Serial.print("Flowmeter task - Core: ");
     // Serial.println(xPortGetCoreID());
 }
@@ -43,7 +51,7 @@ void flowmeterTask(void *pvParameters)
     for (;;)
     {
         vTaskDelay(5); // delay for 1ms
-        // Serial.print("Flowmeter task - Core: ");
+        // Serial.print("Flowmeter task - Core: x");
         // Serial.println(xPortGetCoreID());
     }
 }
