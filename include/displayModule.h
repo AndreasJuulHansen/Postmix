@@ -158,7 +158,7 @@ void loadType(int row, int col, int type)
         // Serial.print(currentPicture[col][row]);
         // Serial.print(" to ");
         // Serial.println(type);
-        Serial.printf("Changing picture value: %d to %d \n", currentPicture[col][row], type);
+        // Serial.printf("Changing picture value: %d to %d \n", currentPicture[col][row], type);
 
         // update previous value
         currentPicture[col][row] = type;
@@ -166,7 +166,7 @@ void loadType(int row, int col, int type)
         // Serial.print("Reading picture ");
         // Serial.println(typeList[type].c_str());
         stat = reader.drawBMP(typeList[type].c_str(), *displays[row][col], 0, 0); // prints picture
-        reader.printStatus(stat);                                                 // How'd we do?
+        // reader.printStatus(stat);                                                 // How'd we do?
     }
 }
 
@@ -216,7 +216,7 @@ void drawLiquid(int row, int col, float percentage)
         // Serial.print(currentPicture[col][row]);
         // Serial.print(" to ");
         // Serial.println(type);
-        Serial.printf("Changing percentage value: %d to %d \n", currentPercentage[col][row], percentage);
+        // Serial.printf("Changing percentage value: %d to %d \n", currentPercentage[col][row], percentage);
 
         // update previous value
         currentPercentage[col][row] = percentage;

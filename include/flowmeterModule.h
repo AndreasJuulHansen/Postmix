@@ -33,7 +33,13 @@ void pulse() // measure the quantity of square wave
 
     if (waterFlow > 50)
     {
-        Serial.println("50");
+        // Serial.println("50");
+
+        String jsonString = "{\"flow\": ";
+        jsonString+=50;
+        jsonString+="}";
+        Serial.println(jsonString);
+
         waterFlow = 0;
     }
 
