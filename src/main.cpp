@@ -3,7 +3,8 @@
 #include "displayModule.h"
 #include "flowmeterModule.h"
 #include "ledModule.h"
-// #include "proximityModule.h"
+#include "serialModule.h"
+#include "proximityModule.h"
 
 void setup()
 {
@@ -86,3 +87,4 @@ void loop()
     }
     FastLED.show();
 }
+
