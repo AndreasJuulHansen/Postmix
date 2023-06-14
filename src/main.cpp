@@ -83,15 +83,14 @@ void loop()
         // Update
         for (int i = 0; i < 2; i++)
         {
-                loadType(0, i, arr[i][0]);
-                drawLiquid(0, i, arr[i][2]);
+            loadType(0, i, arr[i][0]);
+            drawLiquid(0, i, arr[i][2]);
         }
-
-        for (int i = 0; i < 3; i++)
-        {
-            ledControl(0, i, arr[2 - i][1]);
-        }
+    }
+    
+    for (int i = 0; i < 3; i++)
+    {
+        ledControl(0, i, arr[2 - i][1]);
     }
     FastLED.show();
 }
-
