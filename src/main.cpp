@@ -3,7 +3,7 @@
 #include "displayModule.h"
 #include "flowmeterModule.h"
 #include "ledModule.h"
-#include "serialModule.h"
+// #include "serialModule.h"
 #include "proximityModule.h"
 
 void setup()
