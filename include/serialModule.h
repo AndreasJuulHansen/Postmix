@@ -4,13 +4,7 @@ int arr[3][3];
 const int bufferSize = 64;
 char buffer[bufferSize];
 
-void updateStatus(){
-	if (Serial.available() > 0) {
-		int bytesRead = Serial.readBytesUntil('\n', buffer, bufferSize);
-		input = String(buffer).substring(0, bytesRead);
-	}
-	updateArr(String input);
-}
+
 
 
 void updateArr(String input) {
@@ -28,7 +22,13 @@ void updateArr(String input) {
   free(inputCopy);
 }
 
-
+void updateStatus(){
+	if (Serial.available() > 0) {
+		int bytesRead = Serial.readBytesUntil('\n', buffer, bufferSize);
+		input = String(buffer).substring(0, bytesRead);
+	}
+	updateArr(input);
+}
 
 
 //void loop() {
