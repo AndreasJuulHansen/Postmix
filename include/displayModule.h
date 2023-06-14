@@ -111,7 +111,7 @@ void displaySetup()
             // The actual setup
             displays[row][col]->initR(INITR_MINI160x80_PLUGIN); // Init ST7735S mini display
             displays[row][col]->setRotation(1);                 // Sets rotation/orienation of the display
-            displays[row][col]->fillScreen(ST77XX_BLUE);        // Confirmation that
+            displays[row][col]->fillScreen(ST77XX_BLACK);        // Confirmation that
             // displays[row][col]->fillScreen(ST77XX_BLUE);
             // delay(3000);
         }
