@@ -5,7 +5,7 @@ const int bufferSize = 64;
 char buffer[bufferSize];
 
 
-// This function updates the array based on the input string.
+/* // This function updates the array based on the input string.
 void updateArr(String input) {
   // Remove the square brackets and spaces from the input string.
   input.replace("[", "");
@@ -46,12 +46,12 @@ void updateStatus(){
 		// Update the array based on the input string.
 		updateArr(input);
 	}
-}
+} */
 
 
 
 
-/* void updateArr(String input) {
+void updateArr(String input) {
   input.replace("[", "");
   input.replace("]", "");
   input.replace(" ", "");
@@ -72,4 +72,4 @@ void updateStatus(){
 		input = String(buffer).substring(0, bytesRead);
 	}
 	updateArr(input);
-} */
+}

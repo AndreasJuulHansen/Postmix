@@ -191,7 +191,7 @@ void drawLiquid(int row, int col, float percentage)
 
             // Update screen
             displays[row][col]->drawRect(0, 64, displays[row][col]->width(), 16, ST7735_WHITE);                                                                                                       // White box around the status bar
-            displays[row][col]->fillRect(1, 65, displays[row][col]->width() - (displays[row][col]->width() - 1 - displays[row][col]->width() * percentage / 100), 14, ST7735_RED);                    // Red part of status bar
+            displays[row][col]->fillRect(1, 65, (displays[row][col]->width() - 3)- ((displays[row][col]->width() - 1) - displays[row][col]->width() * percentage / 100), 14, ST7735_RED);                    // Red part of status bar
             displays[row][col]->fillRect(1 + displays[row][col]->width() * percentage / 100, 65, displays[row][col]->width() - displays[row][col]->width() * percentage / 100 - 2, 14, ST7735_WHITE); // White part of status bar
         } else {
             displays[row][col]->drawRect(0, 64, displays[row][col]->width(), 16, ST7735_BLACK);                                                                                                       // White box around the status bar
