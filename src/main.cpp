@@ -71,7 +71,6 @@ void loop()
     if (currentTime - lastTime > 1000)
     {
         lastTime = millis();
-
         // Serial.println("Input:");
         // Serial.println(input);
 
